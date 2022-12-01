@@ -96,6 +96,21 @@ describe("Vending Machine Tests", function () {
             expect(alicedoughnutBalanceAfter).to.equal(5);
 
         });
+
+        it("Doughnut purchase receives doughnut tokens", async () => {
+
+            let aliceBalanceBefore = await VendingMachineInstance.balanceOf(aliceAddress)
+
+            await VendingMachineInstance.connect(alice).purchase(
+                2,
+                { value : parseEther("4") }
+            );
+
+            let aliceBalanceAfter = await VendingMachineInstance.balanceOf(aliceAddress)
+            
+            expect(aliceBalanceAfter).to.equal(aliceBalanceBefore.add(4))
+
+        })
     })
 
     describe("Restock tests", function () {
